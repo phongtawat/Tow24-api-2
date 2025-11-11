@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  name     String  @db.VarChar(255)
+  email    String? @unique @db.VarChar(255)
+  mobile   String  @unique @db.VarChar(10)
+  password String  @db.VarChar(255)
+  role     Role    @default(USER)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  cradles          Cradle[]
+  AvailabilityLogs AvailabilityLog[]
+}
+
+enum Role {
+  ADMIN
+  USER
+  DRIVER
+}
+
+model Cradle {
+  id          String       @id @default(cuid())
+  nameCradle  String       @map("name_cradle") @db.VarChar(255)
+  branch      String       @db.VarChar(255)
+  province    String       @db.VarChar(255)
+  district    String       @db.VarChar(255)
+  subDistrict String       @map("sub_district") @db.VarChar(255)
+  latitude    Float
+  longitude   Float
+  img         String
+  status      CradleStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamp(0)
+  user        User?        @relation(fields: [userId], references: [id])
+  userId      String?
+
+  vehicles         Vehicle[]
+  availabilityLogs AvailabilityLog[]
+}
+
+enum CradleStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Vehicle {
+  id          String        @id @default(cuid())
+  plateNumber String        @unique @map("plate_number") @db.VarChar(10)
+  brand       String        @db.VarChar(255)
+  model       String        @db.VarChar(255)
+  vehicleType VehicleType
+  status      VehicleStatus @default(AVAILABLE)
+  price       Decimal?
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamp(0)
+  
+  imgVehicles ImgVehicle[]
+  cradle      Cradle?       @relation(fields: [cradleId], references: [id])
+  cradleId    String?
+
+  availabilityLogs AvailabilityLog[]
+}
+
+model ImgVehicle {
+  id        String   @id @default(cuid())
+  url       String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
+  vehicle   Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId String?
+}
+
+enum VehicleType {
+  CAR
+  MOTORCYCLE
+  TRUCK
+  VAN
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  UNAVAILABLE
+  MAINTENANCE
+}
+
+model AvailabilityLog {
+  id            String        @id @default(cuid())
+  vehicleType   VehicleType
+  latitude      DateTime
+  longitude     DateTime
+  dateTime      DateTime
+  expenses      DateTime?
+  statusPayment PaymentStatus @default(PENDING)
+
+  status    VehicleStatus
+  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime      @updatedAt @map("updated_at") @db.Timestamp(0)
+  user      User?         @relation(fields: [userId], references: [id])
+  userId    String?
+
+  cradle    Cradle?  @relation(fields: [cradleId], references: [id])
+  cradleId  String?
+  vehicle   Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId String?
+}
+
+enum AvailabilityLogStatus {
+  PENDING   //ยังไม่เริ่มใช้งาน/ รออนุมัติ
+  APPROVED  //อนุมัติแล้ว พร้อมใช้งาน
+  IN_USE    //กำลังใช้งานอยู่
+  COMPLETED //ใช้งานเสร็จสิ้น
+  CANCELLED //ยกเลิก 
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      @db.TinyInt
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(0)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(0)
+}
