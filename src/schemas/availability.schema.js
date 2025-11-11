@@ -1,6 +1,6 @@
-import { transform, z } from "zod"
+import {  z } from "zod"
 
-const availabilitySchema = z.object({
+export const availabilitySchema = z.object({
     vehicleType:z.enum(["car", "MOTORCYCLE", "TRUCK", "VAN"]),
     latitude: z
     .string()
@@ -37,9 +37,10 @@ const availabilitySchema = z.object({
 
     statusPayment: z.enum(["PENDING","PAID", "CANCELLED"]),
     status: z.enum(["PENDING", "APPROVED", "IN_USE", "COMPLETED", "CANCELLED"]),
-
     vehicleId: z.string(),
     cradleId: z.string(),
 });
 
-export default availabilitySchema;
+export const schemaParamsAvailability = z.object({
+    availabilityId: z.string().min(1, "availability id is required")
+})

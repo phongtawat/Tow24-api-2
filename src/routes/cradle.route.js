@@ -1,21 +1,34 @@
-import {Router} from "express"
+import { Router } from "express";
+import { validateBodyMiddleware } from "../middlewares/validate.middleware.js";
+import { cradleSchema, schemaParamsCradle } from "../schemas/cradle.schema.js";
 
-const cradleRouter = Router()
+const cradleRouter = Router();
 
 //create cradle
-cradleRouter.post("/", ()=> {});
+cradleRouter.post("/", validateBodyMiddleware(cradleSchema), () => {});
 
 //get all cradle
-cradleRouter.get("/", ()=> {});
- 
+cradleRouter.get("/", () => {});
+
 //get one cradle
-cradleRouter.get('/:cradleId', () => {})
+cradleRouter.get(
+  "/:cradleId",
+  validateBodyMiddleware(schemaParamsCradle),
+  () => {}
+);
 
 //update cradle
-cradleRouter.put('/:cradleId', () => {})
+cradleRouter.put(
+  "/:cradleId",
+  validateBodyMiddleware(schemaParamsCradle),
+  () => {}
+);
 
 //delete cradle
-cradleRouter.delete('/:cradleId', () => {})
+cradleRouter.delete(
+  "/:cradleId",
+  validateBodyMiddleware(schemaParamsCradle),
+  () => {}
+);
 
-
-export default cradleRouter
+export default cradleRouter;

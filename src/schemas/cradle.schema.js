@@ -25,3 +25,7 @@ export const cradleSchema = z.object({
 
     img:z.url(),
 })
+
+export const schemaParamsCradle = z.object({
+    cradleId: z.string().min(1, "cradle Id is required"),
+})

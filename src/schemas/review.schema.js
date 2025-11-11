@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const reviewSchema = z.object({
+export const reviewSchema = z.object({
   rating: z
     .string()
     .min(1, "Rating is required")
@@ -12,18 +12,9 @@ const reviewSchema = z.object({
   comment: z
     .string()
     .max(500, "Comment must be less than 500 characters")
-    .optional()
-    .or(z.literal("")), // อนุญาตให้เป็นค่าว่างได้
-
-  createdAt: z
-    .string()
-    .optional()
-    .transform((val) => (val ? new Date(val) : new Date())),
-
-  updatedAt: z
-    .string()
-    .optional()
-    .transform((val) => (val ? new Date(val) : new Date())),
+    .min(1, "comment is require" )
 });
 
-export default reviewSchema;
+export const schemaParamsReviewId = z.object({
+  reviewId: z.string().min(1, "review Id is required"),
+})

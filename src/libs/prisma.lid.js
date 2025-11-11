@@ -1,4 +1,4 @@
-import {} from "../generated/prisma/client.js";
+import { PrismaClient } from "../generated/prisma/client.js";
 
 const prisma =
   global.prisma ??

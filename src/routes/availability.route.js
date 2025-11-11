@@ -1,20 +1,40 @@
-import {Router} from "express"
+import { Router } from "express";
+import { validateBodyMiddleware } from "../middlewares/validate.middleware.js";
+import  {availabilitySchema,
+  schemaParamsAvailability,
+} from "../schemas/availability.schema.js";
 
-const availabilityLogRouter = Router()
+const availabilityLogRouter = Router();
 
 //create  availabilityLog
-availabilityLogRouter.post('/', () => {})
+availabilityLogRouter.post(
+  "/",
+  validateBodyMiddleware(availabilitySchema),
+  () => {}
+);
 
 // get all  availabilityLog
-availabilityLogRouter.get('/', () => {})
+availabilityLogRouter.get("/", () => {});
 
 //get one  availabilityLog
-availabilityLogRouter.get('/:availabilityLog', () => {})
+availabilityLogRouter.get(
+  "/:availabilityId",
+  validateBodyMiddleware(schemaParamsAvailability),
+  () => {}
+);
 
 // update  availabilityLog
-availabilityLogRouter.put('/:availabilityLog', () => {})
+availabilityLogRouter.put(
+  "/:availabilityId",
+  validateBodyMiddleware(schemaParamsAvailability),
+  () => {}
+);
 
 //delete  availabilityLog
-availabilityLogRouter.delete('/:availabilityLog', () => {})
+availabilityLogRouter.delete(
+  "/:availabilityId",
+  validateBodyMiddleware(schemaParamsAvailability),
+  () => {}
+);
 
-export default availabilityLogRouter
+export default availabilityLogRouter;
