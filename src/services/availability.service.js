@@ -1,26 +1,25 @@
 import prisma from "../libs/prisma.lib.js";
 
-export const createCradle = (data) => {
+export const createAvailability = (data) => {
   return prisma.cradle.create({ data });
 };
 
-export const findAllCradle = () => {
+export const findAllAvailability = () => {
   return prisma.cradle.findMany();
 };
 
-export const findAllCradleByCradleId = (id) => {
+export const findAllAvailabilityByCradleId = (id) => {
   return prisma.cradle.findUnique({ where: { id } });
 };
 
-// 🟡 Update
-export const updateCradle = (id, data) => {
+export const updateAvailability = (id, data) => {
   return prisma.cradle.update({
     where: { id: Number(id) },
     data,
   });
 };
 
-export const deleteCradle = (id) => {
+export const deleteAvailability = (id) => {
   return prisma.cradle.delete({
     where: { id: Number(id) },
   });

@@ -70,9 +70,9 @@ model Vehicle {
   price       Decimal?
   createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamp(0)
-  
+
   imgVehicles ImgVehicle[]
-  cradle      Cradle?       @relation(fields: [cradleId], references: [id])
+  cradle      Cradle?      @relation(fields: [cradleId], references: [id])
   cradleId    String?
 
   availabilityLogs AvailabilityLog[]
@@ -122,9 +122,9 @@ model AvailabilityLog {
 }
 
 enum AvailabilityLogStatus {
-  PENDING   //ยังไม่เริ่มใช้งาน/ รออนุมัติ
-  APPROVED  //อนุมัติแล้ว พร้อมใช้งาน
-  IN_USE    //กำลังใช้งานอยู่
+  PENDING //ยังไม่เริ่มใช้งาน/ รออนุมัติ
+  APPROVED //อนุมัติแล้ว พร้อมใช้งาน
+  IN_USE //กำลังใช้งานอยู่
   COMPLETED //ใช้งานเสร็จสิ้น
   CANCELLED //ยกเลิก 
 }

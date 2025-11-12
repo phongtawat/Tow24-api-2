@@ -1,4 +1,4 @@
-import prisma from "../libs/prisma.lid.js"
+import prisma from "../libs/prisma.lib.js"
 
 export const findUserByMobile = (mobile) => {
     return prisma.user.findUnique({
