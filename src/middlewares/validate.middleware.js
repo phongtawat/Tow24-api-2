@@ -1,6 +1,6 @@
 export function validateBodyMiddleware(schema) {
     return(req, res, next) => {
-        schema.parse(req,body)
+        schema.parse(req.body)
         next()
     }
 }
@@ -8,7 +8,7 @@ export function validateBodyMiddleware(schema) {
 
 export function validateParamsMiddleware(schema) {
     return(req, res, next) => {
-        schema.parse(req,params)
+        schema.parse(req.params)
         next()
     }
 }
@@ -16,7 +16,7 @@ export function validateParamsMiddleware(schema) {
 
 export function validateQueryMiddleware(schema) {
     return(req, res, next) => {
-        schema.parse(req,query)
+        schema.parse(req.query)
         next()
     }
 }

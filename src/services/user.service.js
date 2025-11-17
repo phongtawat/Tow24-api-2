@@ -8,8 +8,9 @@ export const findUserByMobile = (mobile) => {
 };
 
 export const createUser = (data) => {
+    console.log('createUser',data)
     return prisma.user.create({
-        data: { data },
+        data:  data ,
         omit: { password: true},
     });
 

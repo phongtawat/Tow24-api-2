@@ -3,7 +3,9 @@ import { createUser, findUserByMobile } from "../../services/user.service.js";
 import createHttpError from "http-errors";
 
 export const registerController = async (req, res) => {
+  console.log('firreq.bodyst',req.body)
   const { name, email, mobile, password } = req.body;
+
 
   //find user by mobile
   const existUser = await findUserByMobile(mobile);
@@ -15,7 +17,7 @@ export const registerController = async (req, res) => {
   const hash_Password = await hashPassword(password);
 
   const data = { name, email, mobile, password: hash_Password };
-
+console.log('data',data)
   const newUser = await createUser(data);
 
   res
