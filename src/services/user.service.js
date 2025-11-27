@@ -3,7 +3,7 @@ import prisma from "../libs/prisma.lib.js"
 export const findUserByMobile = (mobile) => {
     return prisma.user.findUnique({
         where: { mobile },
-        omit: { password: true},
+       
     });
 };
 
