@@ -17,10 +17,13 @@ export const registerController = async (req, res) => {
   const hash_Password = await hashPassword(password);
 
   const data = { name, email, mobile, password: hash_Password };
-console.log('data',data)
-  const newUser = await createUser(data);
 
+
+  const newUser = await createUser(data);
+ 
+  console.log("newUser", newUser)
+  
   res
     .status(201)
-    .json({ success: true, message: "register successful", newUser });
+    .json({ success: true, message: "register successful" });
 };

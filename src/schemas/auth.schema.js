@@ -1,6 +1,8 @@
 import { z, ZodAny } from "zod"
 
-const mobileRegex = /^[0-9]\d{8}$/;
+// const mobileRegex = /^[0-9]\d{8}$/;
+const mobileRegex = /^0[689]\d{8}$/;
+
 
 export const registerSchema = z.object({
     name: z.string().min(1, "name is required").max(255),

@@ -29,5 +29,7 @@ export const loginController = async (req, res) => {
       const accessToken = genToken(payload);
       console.log("accessToken", accessToken);
 
-  res.status(200).json({ success: true, message: "login successful" });
+      delete existUser.password;
+
+  res.status(200).json({ success: true, message: "login successful",user: existUser });
 };
