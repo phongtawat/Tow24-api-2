@@ -5,7 +5,7 @@ export const vehicleSchema = z.object({
     plateNumber: z.string().min(1, "Plate Number is required").max(10),
     brand: z.string().min(1, "brand is required").max(255),
     model: z.string().min(1, "model is required").max(255),
-    vehicleType: z.enum(["car", "MOTORCYCLE", "TRUCK", "VAN"]), // ❌ car/TRUCK/VAN
+    vehicleType: z.enum(["SLIDE", "TOW"]), 
     status: z.enum(["AVAILABLE", "UNAVAILABLE", "MAINTENANCE"]),
     price: z.string()
     .min(1, "Price is required")

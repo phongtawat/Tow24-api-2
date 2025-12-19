@@ -12,40 +12,41 @@ const vehicleSchema = z.object({
   plateProvince: z.string().min(1, "Plate province is required"),
   brand: z.string().min(1, "Vehicle brand is required"),
   model: z.string().min(1, "Vehicle model is required"),
-  id: z.number().optional(),  
-});
+  
+})
+
 
 // 2. Cradle Schema (ฟอร์มหลัก)import { useState } from 'react';
 
-function CradleForm() {
-  const [formData, setFormData] = useState({
-    // --- Fields from cradleSchema ---
-    nameCradle: '',
-    branch: '', // optional, สามารถเป็นค่าว่างได้
-    province: '',
-    district: '',
-    subDistrict: '',
-    latitude: 0,  // ต้องเป็น Number
-    longitude: 0, // ต้องเป็น Number
-    img: '',      // optional
-    status: 'ACTIVE', // optional, แต่ถ้ามีต้องเป็น 'ACTIVE' หรือ 'INACTIVE'
+// function CradleForm() {
+//   const [formData, setFormData] = useState({
+//     // --- Fields from cradleSchema ---
+//     nameCradle: '',
+//     branch: '', // optional, สามารถเป็นค่าว่างได้
+//     province: '',
+//     district: '',
+//     subDistrict: '',
+//     latitude: 0,  // ต้องเป็น Number
+//     longitude: 0, // ต้องเป็น Number
+//     img: '',      // optional
+//     status: 'ACTIVE', // optional, แต่ถ้ามีต้องเป็น 'ACTIVE' หรือ 'INACTIVE'
     
-    // --- Field for vehicles (Array of Objects) ---
-    vehicles: [
-      // --- Fields from vehicleSchema ---
-      {
-        vehicleType: 'SLIDE', // 💥 สำคัญมาก: ต้องใช้ "vehicleType" ไม่ใช่ "type"
-        plateNumber: '1กข1234',
-        plateProvince: 'กรุงเทพมหานคร', // ชื่อฟิลด์ต้องเป็น plateProvince
-        brand: 'Toyota',
-        model: 'Revo',
-      },
-      // ...สามารถมีรถคันอื่น ๆ เพิ่มใน array นี้ได้
-    ],
-  });
+//     // --- Field for vehicles (Array of Objects) ---
+//     vehicles: [
+//       // --- Fields from vehicleSchema ---
+//       {
+//         vehicleType: 'SLIDE', // 💥 สำคัญมาก: ต้องใช้ "vehicleType" ไม่ใช่ "type"
+//         plateNumber: '1กข1234',
+//         plateProvince: 'กรุงเทพมหานคร', // ชื่อฟิลด์ต้องเป็น plateProvince
+//         brand: 'Toyota',
+//         model: 'Revo',
+//       },
+//       // ...สามารถมีรถคันอื่น ๆ เพิ่มใน array นี้ได้
+//     ],
+//   });
 
-  // ...โค้ดส่วนอื่น ๆ ของฟอร์ม
-}
+//   // ...โค้ดส่วนอื่น ๆ ของฟอร์ม
+// }
 
 export const cradleSchema = z.object({
   nameCradle: z.string().min(1, "Name cradle is required").max(255),

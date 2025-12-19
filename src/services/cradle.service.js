@@ -1,23 +1,40 @@
 import prisma from "../libs/prisma.lib.js";
 
-export const createCradle = ({ vehicles, userId, ...data  }) => {
-  const cradleData = { ...data,
-    userId: String(userId) };
+// export const createCradle = ({ vehicles,  ...data  }) => {
+//   const cradleData = { ...data, };
 
-  if (vehicles && Array.isArray(vehicles) && vehicles.length > 0) {
-    const vehiclesToCreate = vehicles.map(vehicle => {
-      const { id, ...vehicleData } = vehicle;
-      return vehicleData;
-    });
-    cradleData.vehicles = {
-      create: vehiclesToCreate,
-    };
-  }
+//   if (vehicles && Array.isArray(vehicles) && vehicles.length > 0) {
+//     const vehiclesToCreate = vehicles.map(vehicle => {
+//       const { id, ...vehicleData } = vehicle;
+//       return vehicleData;
+//     });
+//     cradleData.vehicles = {
+//       create: vehiclesToCreate,
+//     };
+//   }
 
+//   console.log("cradleData",cradleData.vehicles)
+
+
+//   return prisma.cradle.create({
+//     data: cradleData,
+//     include: {
+//       vehicles: true,
+//     },
+//   });
+// };
+
+export const createCradle = ({ vehicles, ...data }) => {
+  console.log("vehicles", vehicles);
   return prisma.cradle.create({
-    data: cradleData,
+    data: {
+      ...data,
+      vehicles: {
+        create: vehicles, // สร้าง vehicles พร้อมกับ cradle
+      },
+    },
     include: {
-      vehicles: true,
+      vehicles: true, // ส่งคืน vehicles ที่สร้างมาด้วย
     },
   });
 };

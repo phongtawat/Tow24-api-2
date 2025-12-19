@@ -10,7 +10,6 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -43,7 +42,7 @@ model Cradle {
   subDistrict String       @map("sub_district") @db.VarChar(255)
   latitude    Float
   longitude   Float
-  img         String       @db.Text
+  img         String?       @db.Text
   status      CradleStatus @default(ACTIVE)
   createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamp(0)
   updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamp(0)
@@ -88,11 +87,8 @@ model ImgVehicle {
 }
 
 enum VehicleType {
-  CAR
-  MOTORCYCLE
-  TRUCK
-  VAN
   SLIDE
+  TOW
 }
 
 enum VehicleStatus {
