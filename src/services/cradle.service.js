@@ -1,7 +1,25 @@
 import prisma from "../libs/prisma.lib.js";
 
-export const createCradle = (data) => {
-  return prisma.cradle.create({ data });
+export const createCradle = ({ vehicles, userId, ...data  }) => {
+  const cradleData = { ...data,
+    userId: String(userId) };
+
+  if (vehicles && Array.isArray(vehicles) && vehicles.length > 0) {
+    const vehiclesToCreate = vehicles.map(vehicle => {
+      const { id, ...vehicleData } = vehicle;
+      return vehicleData;
+    });
+    cradleData.vehicles = {
+      create: vehiclesToCreate,
+    };
+  }
+
+  return prisma.cradle.create({
+    data: cradleData,
+    include: {
+      vehicles: true,
+    },
+  });
 };
 
 export const findAllCradle = () => {
@@ -15,13 +33,13 @@ export const findAllCradleByCradleId = (id) => {
 // 🟡 Update
 export const updateCradle = (id, data) => {
   return prisma.cradle.update({
-    where: { id: Number(id) },
+    where: { id },
     data,
   });
 };
 
 export const deleteCradle = (id) => {
   return prisma.cradle.delete({
-    where: { id: Number(id) },
+    where: { id },
   });
 };

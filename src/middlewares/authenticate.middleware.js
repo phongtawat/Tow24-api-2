@@ -4,9 +4,10 @@ import { findUserById } from "../services/user.service.js";
 
 
 export const authenticate = async (req, res, next) => {
-    const headerToken = req.header.authorization
+    const headerToken = req.headers.authorization
+    console.log("headerToken",headerToken)
 
-    if(!headerToken || headerToken.startsWith("Bearer")){
+    if(!headerToken || !headerToken.startsWith("Bearer")){
         throw createHttpError.Unauthorized("Unauthorized !")
     }
 

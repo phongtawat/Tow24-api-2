@@ -21,7 +21,7 @@ export const loginController = async (req, res) => {
       console.log("isCheckPassword----", isCheckPassword);
 
       if(!isCheckPassword) {
-        throw createHttpError.BadRequest("mobile or password invalid !");
+        throw createHttpError.BadRequest("mobile or password invalid");
       }
 
       const payload = {sub: existUser.id};
@@ -31,5 +31,5 @@ export const loginController = async (req, res) => {
 
       delete existUser.password;
 
-  res.status(200).json({ success: true, message: "login successful",user: existUser });
+  res.status(200).json({ success: true, message: "login successful",user: existUser, accessToken });
 };

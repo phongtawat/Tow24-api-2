@@ -6,11 +6,12 @@ import { getAllCradleController } from "../controllers/cradle/get-all.controller
 import { getOneCradleController } from "../controllers/cradle/get-one.controller.js";
 import { updateCradleController } from "../controllers/cradle/update.controller.js";
 import { deleteCradle } from "../controllers/cradle/delete.controller.js";
+import { authenticate } from "../middlewares/authenticate.middleware.js";
 
 const cradleRouter = Router();
 
 //create cradle
-cradleRouter.post("/", validateBodyMiddleware(cradleSchema),createCradleController);
+cradleRouter.post("/", validateBodyMiddleware(cradleSchema),authenticate,createCradleController);
 
 //get all cradle
 cradleRouter.get("/", getAllCradleController);

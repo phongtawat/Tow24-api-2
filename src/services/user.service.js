@@ -10,24 +10,21 @@ export const findUserByMobile = (mobile) => {
 export const createUser = (data) => {
     console.log('createUser',data)
     return prisma.user.create({
-        data:  data ,
-        omit: { password: true},
+        data:  data
     });
 
 };
 
 export const findUserById = (id) => {
     return prisma.user.findUnique({
-        where: { id },
-        omit: { password: true},
+        where: { id }
     });
 };
 
 export const updateUser = (id, data) => {
-    return prisma.user.create({
+    return prisma.user.update({
         where: {id},
-        data: { data },
-        omit: { password: true},
+        data: data
     });
 
 };

@@ -1,26 +1,26 @@
 import prisma from "../libs/prisma.lib.js";
 
 export const createVehicle = (data) => {
-  return prisma.cradle.create({ data });
+  return prisma.vehicle.create({ data });
 };
 
 export const findAllVehicle = () => {
-  return prisma.cradle.findMany();
+  return prisma.vehicle.findMany();
 };
 
 export const findAllVehicleByCradleId = (id) => {
-  return prisma.cradle.findUnique({ where: { id } });
+  return prisma.vehicle.findMany({ where: { cradleId: id } });
 };
 
 export const updateVehicle = (id, data) => {
-  return prisma.cradle.update({
-    where: { id: Number(id) },
+  return prisma.vehicle.update({
+    where: { id },
     data,
   });
 };
 
 export const deleteVehicle = (id) => {
-  return prisma.cradle.delete({
-    where: { id: Number(id) },
+  return prisma.vehicle.delete({
+    where: { id },
   });
 };
